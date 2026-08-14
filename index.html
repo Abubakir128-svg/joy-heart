@@ -1,37 +1,310 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-<meta name="theme-color" content="#05070a">
-<title>JOY / within</title>
-<style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#05070a;color:#fff;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;touch-action:none}.stage{position:fixed;inset:0;overflow:hidden;background:radial-gradient(circle at 50% 42%,#171b2244,transparent 28%),linear-gradient(#070a0f,#030507)}.torso{position:absolute;z-index:1;left:50%;top:0;transform:translateX(-50%);width:min(116vw,1780px);height:min(104vh,1120px);filter:drop-shadow(0 30px 85px #000a)}.torso .fill{fill:url(#g);stroke:#ffffff0e;stroke-width:1.2}.torso .light{fill:url(#l);opacity:.48;mix-blend-mode:screen}.torso .shadow{fill:url(#s);opacity:.52}.torso .line{fill:none;stroke:#ffffff0a;stroke-width:1.4}.aura{position:absolute;z-index:2;left:50%;top:47%;width:min(48vw,650px);aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none;background:radial-gradient(circle,#ff385a2e 0 20%,#ff224918 32%,transparent 68%);filter:blur(24px);animation:breathe 2.1s ease-in-out infinite}#heart{position:absolute;z-index:3;inset:0;width:100%;height:100%;display:block;pointer-events:none}.grain{position:absolute;z-index:8;inset:0;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E")}.shade{position:absolute;z-index:7;inset:-20%;pointer-events:none;background:radial-gradient(circle at 50% 45%,transparent 0 29%,#0002 49%,#000a 80%)}.touch{position:absolute;z-index:5;width:18px;height:18px;border:1px solid #fffbd0;border-radius:50%;opacity:0;pointer-events:none;transform:translate(-50%,-50%) scale(.2);box-shadow:0 0 18px #ff5a7870}.touch.live{animation:ripple .7s ease-out forwards}.hot{position:absolute;z-index:10;inset:0}.ui{position:absolute;z-index:12;left:0;right:0;top:0;padding:max(28px,env(safe-area-inset-top)) clamp(22px,4vw,64px) 0;display:flex;justify-content:space-between;letter-spacing:.42em;font-size:11px;text-transform:uppercase;pointer-events:none}.motto{font-size:9px;color:#ffffff88}.bottom{position:absolute;z-index:12;left:50%;bottom:max(34px,calc(env(safe-area-inset-bottom) + 22px));transform:translateX(-50%);text-align:center;pointer-events:none;white-space:nowrap}.finger{width:24px;height:24px;margin:auto auto 11px;opacity:.82}.hint{font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:#ffffffa5}.formula{position:absolute;z-index:12;left:clamp(18px,3vw,46px);bottom:max(32px,calc(env(safe-area-inset-bottom) + 20px));font:500 10px/1.35 ui-monospace,monospace;color:#ffffff48;pointer-events:none}.formula b{color:#ff829b94}@keyframes breathe{50%{transform:translate(-50%,-50%) scale(1.06);opacity:1}}@keyframes ripple{0%{opacity:1;transform:translate(-50%,-50%) scale(.2)}100%{opacity:0;transform:translate(-50%,-50%) scale(5)}}@media(max-width:760px){.torso{width:210vw;height:104vh;top:1vh}.aura{top:43%;width:92vw}.ui{padding-left:20px;padding-right:20px}.motto,.formula{display:none}.hint{font-size:9px;letter-spacing:.3em}.bottom{bottom:max(24px,calc(env(safe-area-inset-bottom) + 16px))}}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
+  <meta name="theme-color" content="#05070a" />
+  <title>JOY / within</title>
+  <style>
+    :root{
+      --bg:#05070a;
+      --fg:#f5f7fb;
+      --muted:#aeb5c0;
+    }
+    *{box-sizing:border-box}
+    html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--fg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;touch-action:none}
+    body{position:relative;isolation:isolate}
+
+    .stage{
+      position:fixed;inset:0;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(24,29,37,.30), transparent 28%),
+        radial-gradient(circle at 50% 70%, rgba(20,24,30,.16), transparent 44%),
+        linear-gradient(180deg,#070a0f 0%,#030507 100%);
+    }
+    .stage::before{
+      content:"";position:absolute;inset:-20%;pointer-events:none;
+      background:radial-gradient(circle at 50% 45%,transparent 0 26%,rgba(0,0,0,.18) 47%,rgba(0,0,0,.68) 78%);
+      z-index:8;
+    }
+    .grain{
+      position:absolute;inset:0;z-index:9;pointer-events:none;opacity:.09;mix-blend-mode:soft-light;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+    }
+
+    .torso-wrap{position:absolute;inset:0;display:grid;place-items:center;z-index:1;pointer-events:none}
+    .torso{
+      position:absolute;
+      width:min(116vw,1780px);
+      height:min(104vh,1120px);
+      top:0;
+      left:50%;transform:translateX(-50%);
+      filter:drop-shadow(0 30px 85px rgba(0,0,0,.65));
+    }
+    .torso .body-fill{fill:url(#bodyGradient);stroke:rgba(255,255,255,.055);stroke-width:1.2}
+    .torso .body-light{fill:url(#bodyLight);opacity:.48;mix-blend-mode:screen}
+    .torso .body-shadow{fill:url(#bodyShadow);opacity:.52}
+    .torso .chest-line{fill:none;stroke:rgba(255,255,255,.03);stroke-width:1.4}
+
+    #gl{position:absolute;inset:0;width:100%;height:100%;z-index:3;display:block;pointer-events:none}
+    .heart-aura{
+      position:absolute;left:50%;top:47%;width:min(48vw,650px);aspect-ratio:1;transform:translate(-50%,-50%);z-index:2;pointer-events:none;
+      background:radial-gradient(circle,rgba(255,56,90,.18) 0 20%,rgba(255,34,73,.095) 32%,transparent 68%);
+      filter:blur(24px);opacity:.9;animation:breathe 2.1s ease-in-out infinite;
+    }
+    @keyframes breathe{50%{transform:translate(-50%,-50%) scale(1.06);opacity:1}}
+
+    .touch-ripple{position:absolute;z-index:5;width:18px;height:18px;border:1px solid rgba(255,240,244,.78);border-radius:50%;transform:translate(-50%,-50%) scale(.2);opacity:0;pointer-events:none;box-shadow:0 0 16px rgba(255,90,120,.35)}
+    .touch-ripple::before,.touch-ripple::after{content:"";position:absolute;inset:-1px;border:1px solid rgba(255,120,145,.55);border-radius:50%}
+    .touch-ripple.live{animation:ripple .68s ease-out forwards}
+    .touch-ripple.live::before{animation:rippleInner .68s ease-out forwards}.touch-ripple.live::after{animation:rippleOuter .68s ease-out forwards}
+    @keyframes ripple{0%{opacity:.95;transform:translate(-50%,-50%) scale(.2)}100%{opacity:0;transform:translate(-50%,-50%) scale(4)}}
+    @keyframes rippleInner{100%{transform:scale(1.75);opacity:0}}@keyframes rippleOuter{100%{transform:scale(2.75);opacity:0}}
+
+    header{position:absolute;z-index:12;left:0;right:0;top:0;display:flex;align-items:center;justify-content:space-between;padding:max(28px,env(safe-area-inset-top)) clamp(22px,4vw,64px) 0;pointer-events:none;text-transform:uppercase;letter-spacing:.42em;font-size:11px;color:rgba(255,255,255,.80)}
+    .brand{font-weight:600}.motto{font-size:9px;color:rgba(255,255,255,.54);letter-spacing:.34em}
+    .footer-ui{position:absolute;left:50%;bottom:max(34px,calc(env(safe-area-inset-bottom) + 22px));transform:translateX(-50%);z-index:12;text-align:center;pointer-events:none;white-space:nowrap}
+    .finger{width:24px;height:24px;margin:0 auto 11px;opacity:.82;filter:drop-shadow(0 0 8px rgba(255,80,110,.18))}
+    .hint{font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:rgba(255,255,255,.64)}
+    .formula{position:absolute;z-index:12;left:clamp(18px,3vw,46px);bottom:max(32px,calc(env(safe-area-inset-bottom) + 20px));font:500 10px/1.35 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;color:rgba(255,255,255,.28);letter-spacing:.03em;pointer-events:none}
+    .formula b{color:rgba(255,130,155,.58);font-weight:600}
+
+    .hotzone{position:absolute;z-index:10;inset:0;cursor:crosshair}
+    .hotzone:active{cursor:grabbing}
+
+    @media (max-width:760px){
+      .torso{width:210vw;height:104vh;top:1vh}
+      .heart-aura{top:43%;width:92vw}
+      header{padding-left:20px;padding-right:20px}.motto{display:none}
+      .footer-ui{bottom:max(24px,calc(env(safe-area-inset-bottom) + 16px))}
+      .formula{display:none}
+      .hint{font-size:9px;letter-spacing:.30em}
+    }
+    @media (prefers-reduced-motion:reduce){.heart-aura{animation:none}}
+  </style>
 </head>
 <body>
-<main class="stage">
-<svg class="torso" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMin slice" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#171a20"/><stop offset=".42" stop-color="#0e1116"/><stop offset="1" stop-color="#080a0d"/></linearGradient><radialGradient id="l" cx="50%" cy="18%" r="62%"><stop offset="0" stop-color="#39404a" stop-opacity=".42"/><stop offset=".46" stop-color="#151920" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient><linearGradient id="s" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".78"/><stop offset=".27" stop-color="#000" stop-opacity="0"/><stop offset=".73" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".78"/></linearGradient></defs><path class="fill" d="M662 18C670 70 650 103 607 126C537 163 459 167 369 191C258 220 185 271 156 356C121 457 100 625 82 1000H1518C1500 625 1479 457 1444 356C1415 271 1342 220 1231 191C1141 167 1063 163 993 126C950 103 930 70 938 18Z"/><path class="light" d="M697 21C710 84 689 124 620 156C560 184 480 190 393 211C315 230 254 260 218 307C289 263 392 252 512 253C619 254 711 284 800 337C889 284 981 254 1088 253C1208 252 1311 263 1382 307C1346 260 1285 230 1207 211C1120 190 1040 184 980 156C911 124 890 84 903 21Z"/><path class="shadow" d="M662 18C670 70 650 103 607 126C537 163 459 167 369 191C258 220 185 271 156 356C121 457 100 625 82 1000H1518C1500 625 1479 457 1444 356C1415 271 1342 220 1231 191C1141 167 1063 163 993 126C950 103 930 70 938 18Z"/><path class="line" d="M513 282C634 247 736 284 800 347C864 284 966 247 1087 282M800 347C797 427 795 497 800 610"/></svg>
-<div class="aura"></div><canvas id="heart"></canvas><div id="touch" class="touch"></div><div id="hot" class="hot"></div><div class="shade"></div><div class="grain"></div>
-<header class="ui"><div>WITHIN</div><div class="motto">FEEL · CONNECT · BE</div></header>
-<div class="formula"><b>JOY(t)</b> = warmth × connection × presence<br>+ curiosity − fear + shared_energy</div>
-<div class="bottom"><svg class="finger" viewBox="0 0 24 24" fill="none"><path d="M9.2 11.5V5.4a1.7 1.7 0 0 1 3.4 0v5.1-2.2a1.55 1.55 0 0 1 3.1 0v2.6-1.5a1.45 1.45 0 0 1 2.9 0v4.9c0 4.2-2.7 6.7-6.4 6.7H11c-2.3 0-3.9-.9-5-2.4l-2.2-3a1.55 1.55 0 0 1 2.4-2l3 3.1V11.5Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="hint">коснись сердца</div></div>
-</main>
+  <main class="stage" aria-label="Интерактивная визуализация эмоции радости">
+    <div class="torso-wrap" aria-hidden="true">
+      <svg class="torso" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMin slice">
+        <defs>
+          <linearGradient id="bodyGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#171a20"/><stop offset=".42" stop-color="#0e1116"/><stop offset="1" stop-color="#080a0d"/></linearGradient>
+          <radialGradient id="bodyLight" cx="50%" cy="18%" r="62%"><stop offset="0" stop-color="#39404a" stop-opacity=".42"/><stop offset=".46" stop-color="#151920" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+          <linearGradient id="bodyShadow" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".78"/><stop offset=".27" stop-color="#000" stop-opacity="0"/><stop offset=".73" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".78"/></linearGradient>
+          <filter id="soft"><feGaussianBlur stdDeviation="18"/></filter>
+        </defs>
+        <!-- head deliberately absent: only neck base, broad shoulders and torso -->
+        <path class="body-fill" d="M662 18 C670 70 650 103 607 126 C537 163 459 167 369 191 C258 220 185 271 156 356 C121 457 100 625 82 1000 L1518 1000 C1500 625 1479 457 1444 356 C1415 271 1342 220 1231 191 C1141 167 1063 163 993 126 C950 103 930 70 938 18 Z"/>
+        <path class="body-light" d="M697 21 C710 84 689 124 620 156 C560 184 480 190 393 211 C315 230 254 260 218 307 C289 263 392 252 512 253 C619 254 711 284 800 337 C889 284 981 254 1088 253 C1208 252 1311 263 1382 307 C1346 260 1285 230 1207 211 C1120 190 1040 184 980 156 C911 124 890 84 903 21 Z"/>
+        <path class="body-shadow" d="M662 18 C670 70 650 103 607 126 C537 163 459 167 369 191 C258 220 185 271 156 356 C121 457 100 625 82 1000 L1518 1000 C1500 625 1479 457 1444 356 C1415 271 1342 220 1231 191 C1141 167 1063 163 993 126 C950 103 930 70 938 18 Z"/>
+        <path class="chest-line" d="M513 282 C634 247 736 284 800 347 C864 284 966 247 1087 282"/>
+        <path class="chest-line" d="M800 347 C797 427 795 497 800 610"/>
+        <ellipse cx="800" cy="425" rx="298" ry="215" fill="#ff274f" opacity=".025" filter="url(#soft)"/>
+      </svg>
+    </div>
+
+    <div class="heart-aura" aria-hidden="true"></div>
+    <canvas id="gl"></canvas>
+    <div id="ripple" class="touch-ripple" aria-hidden="true"></div>
+    <div id="hotzone" class="hotzone" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header><div class="brand">WITHIN</div><div class="motto">FEEL · CONNECT · BE</div></header>
+
+    <div class="formula" aria-hidden="true">
+      <b>JOY(t)</b> = warmth × connection × presence<br>
+      + curiosity − fear + shared_energy
+    </div>
+
+    <div class="footer-ui" aria-hidden="true">
+      <svg class="finger" viewBox="0 0 24 24" fill="none"><path d="M9.2 11.5V5.4a1.7 1.7 0 0 1 3.4 0v5.1-2.2a1.55 1.55 0 0 1 3.1 0v2.6-1.5a1.45 1.45 0 0 1 2.9 0v4.9c0 4.2-2.7 6.7-6.4 6.7H11c-2.3 0-3.9-.9-5-2.4l-2.2-3a1.55 1.55 0 0 1 2.4-2l3 3.1V11.5Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="hint">коснись сердца</div>
+    </div>
+  </main>
+
 <script>
-(()=>{
-const c=document.getElementById('heart'),ctx=c.getContext('2d',{alpha:true}),hot=document.getElementById('hot'),touch=document.getElementById('touch');
-if(!ctx){document.querySelector('.hint').textContent='Canvas недоступен';return}
-let w=1,h=1,dpr=1,cx=0,cy=0,scale=1,base=document.createElement('canvas'),bctx=base.getContext('2d'),particles=innerWidth<760?160000:210000,ptr={x:0,y:0,tx:0,ty:0,down:0,target:0,active:false},burst=[];
-let rng=0x51f15e;const rnd=()=>((rng=(rng*1664525+1013904223)>>>0)/4294967296),clamp=v=>Math.max(0,Math.min(1,v));
-const joy=(t,i)=>clamp(.62+.08*Math.sin(t*.72)+.20*i+.10+.05*Math.sin(t*.31+1.4));
-function rebuild(){rng=0x51f15e;base.width=Math.floor(w*dpr);base.height=Math.floor(h*dpr);bctx=base.getContext('2d');const img=bctx.createImageData(base.width,base.height),px=img.data;cx=w*.5;cy=h*.43;scale=h*.205;for(let i=0;i<particles;i++){const t=rnd()*Math.PI*2,r=Math.sqrt(rnd());let x=16*Math.pow(Math.sin(t),3)/18,y=(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))/18;x*=r;y*=r;x+=(rnd()-.5)*.014*(1-r);y+=(rnd()-.5)*.014*(1-r);const X=Math.round((cx+x*scale)*dpr),Y=Math.round((cy-y*scale)*dpr);if(X<1||Y<1||X>=base.width-1||Y>=base.height-1)continue;const q=rnd(),k=(Y*base.width+X)*4;if(q>.965){px[k]=255;px[k+1]=235;px[k+2]=232;px[k+3]=245}else if(q>.78){px[k]=255;px[k+1]=108;px[k+2]=105;px[k+3]=220}else if(q>.34){px[k]=255;px[k+1]=48;px[k+2]=86;px[k+3]=205}else{px[k]=255;px[k+1]=24;px[k+2]=68;px[k+3]=175}if(q>.90){const k2=k+4;if(k2<px.length){px[k2]=255;px[k2+1]=90;px[k2+2]=105;px[k2+3]=150}}}bctx.putImageData(img,0,0)}
-function resize(){w=innerWidth;h=innerHeight;dpr=Math.min(devicePixelRatio||1,1.35);c.width=Math.floor(w*dpr);c.height=Math.floor(h*dpr);c.style.width=w+'px';c.style.height=h+'px';ctx.setTransform(dpr,0,0,dpr,0,0);rebuild();if(!ptr.active){ptr.x=ptr.tx=cx;ptr.y=ptr.ty=cy}}
-addEventListener('resize',resize,{passive:true});resize();
-function ripple(x,y){touch.style.left=x+'px';touch.style.top=y+'px';touch.classList.remove('live');void touch.offsetWidth;touch.classList.add('live')}
-function emit(x,y,n){for(let i=0;i<n;i++){const a=rnd()*Math.PI*2,s=18+rnd()*95;burst.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:1,z:.7+rnd()*1.7})}if(burst.length>700)burst=burst.slice(-700)}
-function move(e){ptr.tx=e.clientX;ptr.ty=e.clientY;ptr.active=true}function down(e){move(e);ptr.target=1;ripple(e.clientX,e.clientY);emit(e.clientX,e.clientY,100)}function up(){ptr.target=0}function leave(){if(!ptr.target)ptr.active=false}
-hot.addEventListener('pointermove',move,{passive:true});hot.addEventListener('pointerdown',down,{passive:true});hot.addEventListener('pointerup',up,{passive:true});hot.addEventListener('pointercancel',up,{passive:true});hot.addEventListener('pointerleave',leave,{passive:true});
-const start=performance.now();let last=start;function frame(now){const t=(now-start)/1000,dt=Math.min(.034,(now-last)/1000);last=now;ptr.x+=(ptr.tx-ptr.x)*.18;ptr.y+=(ptr.ty-ptr.y)*.18;ptr.down+=(ptr.target-ptr.down)*.14;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);const j=joy(t,ptr.down),pulse=1+(.009+.022*j)*Math.sin(t*(2.55+1.1*j))+.006*Math.sin(t*6.1);ctx.save();ctx.translate(cx,cy);ctx.scale(pulse,pulse);ctx.translate(-cx,-cy);ctx.globalAlpha=.9+.1*j;ctx.drawImage(base,0,0,w,h);ctx.restore();if(ptr.active&&Math.hypot(ptr.x-cx,ptr.y-cy)<scale*1.42){const p=.22+.78*ptr.down,R=42+54*p;ctx.save();ctx.beginPath();ctx.arc(ptr.x,ptr.y,R,0,Math.PI*2);ctx.clip();ctx.clearRect(ptr.x-R-3,ptr.y-R-3,R*2+6,R*2+6);ctx.translate(ptr.x,ptr.y);ctx.rotate(Math.sin(t*5.2)*(.018+.055*p));const z=1.015+.055*p;ctx.scale(z,z);ctx.translate(-ptr.x,-ptr.y);ctx.globalAlpha=1;ctx.drawImage(base,0,0,w,h);ctx.restore();const g=ctx.createRadialGradient(ptr.x,ptr.y,0,ptr.x,ptr.y,R*1.25);g.addColorStop(0,'#fff0e835');g.addColorStop(.2,'#ff5a7828');g.addColorStop(1,'#ff285000');ctx.fillStyle=g;ctx.beginPath();ctx.arc(ptr.x,ptr.y,R*1.25,0,Math.PI*2);ctx.fill()}if(ptr.target&&Math.random()<.22)emit(ptr.x,ptr.y,4);ctx.save();ctx.globalCompositeOperation='lighter';for(let i=burst.length-1;i>=0;i--){const b=burst[i];b.x+=b.vx*dt;b.y+=b.vy*dt;b.vx*=.986;b.vy*=.986;b.life-=dt*1.05;if(b.life<=0){burst.splice(i,1);continue}ctx.globalAlpha=b.life*.9;ctx.fillStyle=b.life>.72?'#ffe0db':'#ff4b6e';ctx.fillRect(b.x,b.y,b.z,b.z)}ctx.restore();requestAnimationFrame(frame)}requestAnimationFrame(frame)
+(() => {
+  const canvas = document.getElementById('gl');
+  const hotzone = document.getElementById('hotzone');
+  const ripple = document.getElementById('ripple');
+  const gl = canvas.getContext('webgl', {alpha:true, antialias:false, powerPreference:'high-performance'});
+  if (!gl) {
+    document.querySelector('.hint').textContent = 'WebGL недоступен';
+    return;
+  }
+
+  const mobile = matchMedia('(max-width: 760px)').matches || /Mobi|Android/i.test(navigator.userAgent);
+  const lowMemory = typeof navigator.deviceMemory === 'number' && navigator.deviceMemory <= 4;
+  const COUNT = mobile ? (lowMemory ? 110000 : 150000) : (lowMemory ? 160000 : 220000);
+
+  const vs = `
+    precision highp float;
+    attribute vec2 aPos;
+    attribute float aSeed;
+    attribute float aDepth;
+    uniform vec2 uResolution;
+    uniform vec2 uPointer;
+    uniform float uTime;
+    uniform float uPressed;
+    uniform float uAspect;
+    uniform float uJoy;
+    varying float vSeed;
+    varying float vGlow;
+    void main(){
+      float pulse = 1.0 + (0.012 + 0.028*uJoy)*sin(uTime*(2.55 + 1.25*uJoy)) + 0.010*sin(uTime*6.3 + aSeed*6.2831);
+      vec2 p = aPos * pulse;
+
+      float wobble = 0.0065 * (0.35 + 0.65*aDepth);
+      p.x += sin(uTime*1.55 + aSeed*31.0) * wobble;
+      p.y += cos(uTime*1.32 + aSeed*27.0) * wobble;
+
+      float heartScale = uResolution.x < 760.0 ? 0.43 : 0.315;
+      vec2 screenP = vec2(p.x * heartScale / uAspect, p.y * heartScale);
+      screenP.y += uResolution.x < 760.0 ? 0.14 : 0.045;
+
+      vec2 d = screenP - uPointer;
+      d.x *= uAspect;
+      float dist = length(d);
+      float influence = smoothstep(0.27, 0.0, dist);
+      vec2 dir = dist > 0.0001 ? normalize(d) : vec2(0.0,1.0);
+      float force = influence * (0.055 + 0.13*uPressed);
+      screenP += vec2(dir.x/uAspect, dir.y) * force;
+
+      vec2 tangent = vec2(-dir.y, dir.x);
+      screenP += vec2(tangent.x/uAspect, tangent.y) * influence * (0.013 + 0.035*uPressed) * sin(uTime*7.0 + aSeed*10.0);
+
+      gl_Position = vec4(screenP, 0.0, 1.0);
+      float depthSize = mix(1.15, 2.5, aDepth);
+      float responsive = 1.0 + influence * (0.8 + uPressed*1.35);
+      gl_PointSize = min(4.6, depthSize * responsive * (0.82 + 0.34*uJoy) * min(1.8, uResolution.y/700.0));
+      vSeed = aSeed;
+      vGlow = influence;
+    }
+  `;
+
+  const fs = `
+    precision mediump float;
+    varying float vSeed;
+    varying float vGlow;
+    uniform float uTime;
+    uniform float uJoy;
+    void main(){
+      vec2 q = gl_PointCoord - 0.5;
+      float r = length(q);
+      float alpha = smoothstep(0.5, 0.07, r);
+      if(alpha <= 0.01) discard;
+      float twinkle = 0.68 + 0.32*sin(uTime*4.2 + vSeed*47.0);
+      vec3 c1 = vec3(1.0, 0.055, 0.18);
+      vec3 c2 = vec3(1.0, 0.38, 0.30);
+      vec3 c3 = vec3(1.0, 0.86, 0.78);
+      vec3 col = mix(c1, c2, fract(vSeed*8.31));
+      col *= 0.78 + 0.34*uJoy;
+      col = mix(col, c3, smoothstep(0.78, 1.0, twinkle + vGlow*0.55));
+      float a = alpha * (0.32 + 0.56*twinkle + 0.28*vGlow);
+      gl_FragColor = vec4(col, a);
+    }
+  `;
+
+  function shader(type, src){
+    const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);
+    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+    return s;
+  }
+  const program=gl.createProgram();
+  gl.attachShader(program,shader(gl.VERTEX_SHADER,vs));
+  gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fs));
+  gl.linkProgram(program);
+  if(!gl.getProgramParameter(program,gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(program));
+  gl.useProgram(program);
+
+  const data = new Float32Array(COUNT*4);
+  for(let i=0;i<COUNT;i++){
+    const t=Math.random()*Math.PI*2;
+    const radial=Math.sqrt(Math.random());
+    let x=16*Math.pow(Math.sin(t),3)/18;
+    let y=(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))/18;
+    x*=radial;
+    y*=radial;
+    const depth=Math.random();
+    x += (Math.random()-.5)*0.015*(1-radial);
+    y += (Math.random()-.5)*0.015*(1-radial);
+    data[i*4]=x;
+    data[i*4+1]=y;
+    data[i*4+2]=Math.random();
+    data[i*4+3]=depth;
+  }
+
+  const buf=gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);
+  const stride=4*4;
+  const aPos=gl.getAttribLocation(program,'aPos');
+  gl.enableVertexAttribArray(aPos);gl.vertexAttribPointer(aPos,2,gl.FLOAT,false,stride,0);
+  const aSeed=gl.getAttribLocation(program,'aSeed');
+  gl.enableVertexAttribArray(aSeed);gl.vertexAttribPointer(aSeed,1,gl.FLOAT,false,stride,8);
+  const aDepth=gl.getAttribLocation(program,'aDepth');
+  gl.enableVertexAttribArray(aDepth);gl.vertexAttribPointer(aDepth,1,gl.FLOAT,false,stride,12);
+
+  const uResolution=gl.getUniformLocation(program,'uResolution');
+  const uPointer=gl.getUniformLocation(program,'uPointer');
+  const uTime=gl.getUniformLocation(program,'uTime');
+  const uPressed=gl.getUniformLocation(program,'uPressed');
+  const uAspect=gl.getUniformLocation(program,'uAspect');
+  const uJoy=gl.getUniformLocation(program,'uJoy');
+
+  gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);gl.disable(gl.DEPTH_TEST);
+
+  let width=1,height=1,dpr=1;
+  function resize(){
+    width=innerWidth;height=innerHeight;dpr=Math.min(devicePixelRatio||1,mobile?1.5:2);
+    canvas.width=Math.floor(width*dpr);canvas.height=Math.floor(height*dpr);
+    canvas.style.width=width+'px';canvas.style.height=height+'px';
+    gl.viewport(0,0,canvas.width,canvas.height);
+  }
+  addEventListener('resize',resize,{passive:true});resize();
+
+  let pointer={x:0,y:-2,tx:0,ty:-2,pressed:0,targetPressed:0};
+  function toNdc(clientX,clientY){return {x:(clientX/width)*2-1,y:1-(clientY/height)*2};}
+  function move(e){const p=toNdc(e.clientX,e.clientY);pointer.tx=p.x;pointer.ty=p.y;}
+  function down(e){hotzone.setPointerCapture?.(e.pointerId);move(e);pointer.targetPressed=1;spawnRipple(e.clientX,e.clientY);}
+  function up(){pointer.targetPressed=0;}
+  function leave(){if(!pointer.targetPressed){pointer.tx=0;pointer.ty=-2;}}
+  hotzone.addEventListener('pointermove',move,{passive:true});
+  hotzone.addEventListener('pointerdown',down,{passive:true});
+  hotzone.addEventListener('pointerup',up,{passive:true});
+  hotzone.addEventListener('pointercancel',up,{passive:true});
+  hotzone.addEventListener('pointerleave',leave,{passive:true});
+
+  function spawnRipple(x,y){
+    ripple.style.left=x+'px';ripple.style.top=y+'px';ripple.classList.remove('live');
+    void ripple.offsetWidth;ripple.classList.add('live');
+  }
+
+  const clamp01 = v => Math.max(0, Math.min(1, v));
+  function joy(t, interaction){
+    const warmth = 0.62 + 0.08*Math.sin(t*0.72);
+    const connection = 0.20*interaction;
+    const presence = 0.10 + 0.05*Math.sin(t*0.31 + 1.4);
+    return clamp01(warmth + connection + presence);
+  }
+
+  const start=performance.now();
+  function frame(now){
+    const time=(now-start)/1000;
+    pointer.x += (pointer.tx-pointer.x)*0.17;
+    pointer.y += (pointer.ty-pointer.y)*0.17;
+    pointer.pressed += (pointer.targetPressed-pointer.pressed)*0.13;
+    gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.uniform2f(uResolution,width,height);
+    gl.uniform2f(uPointer,pointer.x,pointer.y);
+    gl.uniform1f(uTime,time);
+    gl.uniform1f(uPressed,pointer.pressed);
+    gl.uniform1f(uAspect,width/height);
+    gl.uniform1f(uJoy,joy(time,pointer.pressed));
+    gl.drawArrays(gl.POINTS,0,COUNT);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
 })();
 </script>
 </body>
